@@ -1,0 +1,329 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap');
+
+:root {
+  --bg: #07080a;
+  --panel: #101215;
+  --panel-2: #16181c;
+  --line: #2a2d33;
+  --text: #c9cdd3;
+  --dim: #6b7078;
+  --blood: #8e1b1b;
+  --blood-bright: #c62828;
+  --sick: #6fae6f;
+  --sick-dim: #3a5c3a;
+  --sane: #4a90a4;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Courier Prime', monospace;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.12),
+    rgba(0,0,0,0.12) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: multiply;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 51;
+  box-shadow: inset 0 0 180px 40px rgba(0,0,0,0.85);
+}
+
+#app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.screen {
+  display: none;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  animation: fadein 0.6s ease;
+}
+.screen.active { display: flex; }
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ---------- Title ---------- */
+.title {
+  font-family: 'Special Elite', cursive;
+  font-size: 4.2rem;
+  letter-spacing: 0.3rem;
+  color: #d8d8d8;
+  text-shadow: 0 0 8px var(--blood), 0 0 24px rgba(142,27,27,0.5);
+  margin-bottom: 0;
+  animation: flicker 6s infinite;
+}
+@keyframes flicker {
+  0%, 92%, 94%, 96%, 100% { opacity: 1; }
+  93% { opacity: 0.35; }
+  95% { opacity: 0.7; }
+}
+.subtitle {
+  font-family: 'Special Elite', cursive;
+  color: var(--dim);
+  letter-spacing: 0.15rem;
+  margin-top: 4px;
+}
+.blurb {
+  max-width: 480px;
+  color: var(--dim);
+  line-height: 1.6;
+  margin: 24px 0;
+}
+.hint { color: #444; font-size: 0.8rem; margin-top: 18px; }
+
+.btn {
+  background: var(--panel-2);
+  border: 1px solid var(--blood);
+  color: var(--text);
+  font-family: 'Special Elite', cursive;
+  letter-spacing: 0.1rem;
+  padding: 12px 28px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn:hover {
+  background: var(--blood);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(198,40,40,0.6);
+}
+.btn:active { transform: scale(0.97); }
+
+/* ---------- Explore ---------- */
+#screen-explore, #screen-combat {
+  align-items: stretch;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+#hud, #hud-combat {
+  display: flex;
+  gap: 32px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 18px;
+}
+.stat { display: flex; align-items: center; gap: 8px; flex: 1; }
+.stat-label {
+  font-family: 'Special Elite', cursive;
+  font-size: 0.75rem;
+  color: var(--dim);
+  width: 60px;
+}
+.bar {
+  flex: 1;
+  height: 12px;
+  background: #000;
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.fill { height: 100%; transition: width 0.4s ease; }
+.fill.hp { background: linear-gradient(90deg, var(--blood), var(--blood-bright)); }
+.fill.sn { background: linear-gradient(90deg, #234, var(--sane)); }
+.fill.en { background: linear-gradient(90deg, #3a5c3a, var(--sick)); }
+.stat-text { font-size: 0.75rem; color: var(--dim); width: 56px; text-align: right; }
+
+#room-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#screen-explore { flex-direction: row; gap: 24px; }
+#screen-explore #room-panel { flex: 3; }
+#side-panel {
+  flex: 1;
+  border-left: 1px solid var(--line);
+  padding-left: 20px;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+#room-name {
+  font-family: 'Special Elite', cursive;
+  color: #d8d8d8;
+  letter-spacing: 0.08rem;
+  margin: 0 0 12px 0;
+}
+#room-text {
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre-line;
+  min-height: 120px;
+}
+#room-choices {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 16px;
+}
+#room-choices .btn { text-align: left; width: 100%; }
+
+#side-panel h3 {
+  font-family: 'Special Elite', cursive;
+  font-size: 0.85rem;
+  color: var(--dim);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 6px;
+  margin: 0 0 8px 0;
+}
+#inventory-list { margin-bottom: 20px; min-height: 20px; }
+.item-row { font-size: 0.85rem; padding: 3px 0; color: var(--sane); }
+#event-log {
+  flex: 1;
+  overflow-y: auto;
+  font-size: 0.78rem;
+  color: var(--dim);
+  display: flex;
+  flex-direction: column-reverse;
+  max-height: 260px;
+}
+.log-line { padding: 2px 0; border-bottom: 1px dotted #1c1e22; }
+
+/* ---------- Combat ---------- */
+#enemy-panel { text-align: center; padding: 10px 0 20px; }
+#enemy-glyph {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  animation: sway 3s ease-in-out infinite;
+}
+.enemy-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 10px rgba(198,40,40,0.5));
+}
+.enemy-svg .body {
+  fill: #1b1d22;
+  stroke: #34383f;
+  stroke-width: 1.5;
+}
+.enemy-svg .eye {
+  fill: var(--blood-bright);
+  filter: drop-shadow(0 0 4px var(--blood-bright));
+}
+@keyframes sway {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-4px) rotate(-2deg); }
+}
+#enemy-name {
+  font-family: 'Special Elite', cursive;
+  color: #e0b8b8;
+  margin: 4px 0 12px;
+}
+.enemy-bar { max-width: 320px; margin: 0 auto; }
+#en-text { display: block; text-align: center; margin-top: 4px; }
+
+#combat-log {
+  flex: 1;
+  background: #000;
+  border: 1px solid var(--line);
+  padding: 12px;
+  font-size: 0.85rem;
+  color: var(--text);
+  min-height: 140px;
+  max-height: 220px;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  white-space: pre-line;
+}
+.combat-line { padding: 2px 0; }
+.combat-line.enemy { color: #d08a8a; }
+.combat-line.you { color: var(--sane); }
+.combat-line.warn { color: #d0b060; }
+
+#combat-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px;
+}
+#item-menu.hidden { display: none; }
+#item-menu {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ---------- End ---------- */
+#end-title {
+  font-family: 'Special Elite', cursive;
+  font-size: 2.6rem;
+  color: var(--blood-bright);
+  text-shadow: 0 0 16px rgba(198,40,40,0.6);
+}
+#end-text {
+  max-width: 480px;
+  line-height: 1.7;
+  color: var(--dim);
+  margin-bottom: 28px;
+  white-space: pre-line;
+}
+
+/* ---------- Low sanity distortion ---------- */
+body.unstable #room-text, body.unstable #combat-log, body.unstable #enemy-name {
+  animation: glitch 0.25s steps(2) infinite;
+}
+@keyframes glitch {
+  0% { transform: translate(0,0); text-shadow: none; }
+  50% { transform: translate(1px,-1px); text-shadow: -1px 0 var(--blood-bright), 1px 0 var(--sane); }
+  100% { transform: translate(-1px,1px); text-shadow: none; }
+}
+body.unstable .title, body.unstable #room-name { color: #e8d0d0; }
+
+#flash-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--blood-bright);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 60;
+}
+#flash-overlay.hit { animation: flash 0.35s ease; }
+@keyframes flash {
+  0% { opacity: 0.55; }
+  100% { opacity: 0; }
+}
+
+@media (max-width: 700px) {
+  #screen-explore { flex-direction: column; }
+  #side-panel { border-left: none; border-top: 1px solid var(--line); padding-left: 0; padding-top: 16px; }
+  .title { font-size: 2.6rem; }
+  #combat-actions { grid-template-columns: 1fr 1fr; }
+}

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ward 0: A Haunted Hospital Nightmare</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- TITLE SCREEN -->
+  <section id="screen-title" class="screen active">
+    <h1 class="title">WARD&nbsp;0</h1>
+    <p class="subtitle">a nightmare in a haunted hospital</p>
+    <p class="blurb">You went in for a routine scan.<br>
+       You woke up somewhere that isn't a hospital anymore &mdash;<br>
+       or maybe it always was, and you just never saw it before.</p>
+    <button id="btn-start" class="btn">Wake Up</button>
+    <p class="hint">Turn-based demo &middot; keyboard optional, mouse/tap works</p>
+  </section>
+
+  <!-- EXPLORE SCREEN -->
+  <section id="screen-explore" class="screen">
+    <div id="hud">
+      <div class="stat">
+        <span class="stat-label">HP</span>
+        <div class="bar"><div id="hp-fill" class="fill hp"></div></div>
+        <span id="hp-text" class="stat-text"></span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">SANITY</span>
+        <div class="bar"><div id="sn-fill" class="fill sn"></div></div>
+        <span id="sn-text" class="stat-text"></span>
+      </div>
+    </div>
+
+    <div id="room-panel">
+      <h2 id="room-name"></h2>
+      <p id="room-text"></p>
+      <div id="room-choices"></div>
+    </div>
+
+    <div id="side-panel">
+      <h3>Inventory</h3>
+      <div id="inventory-list"></div>
+      <h3>Log</h3>
+      <div id="event-log"></div>
+    </div>
+  </section>
+
+  <!-- COMBAT SCREEN -->
+  <section id="screen-combat" class="screen">
+    <div id="hud-combat">
+      <div class="stat">
+        <span class="stat-label">HP</span>
+        <div class="bar"><div id="hp-fill-c" class="fill hp"></div></div>
+        <span id="hp-text-c" class="stat-text"></span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">SANITY</span>
+        <div class="bar"><div id="sn-fill-c" class="fill sn"></div></div>
+        <span id="sn-text-c" class="stat-text"></span>
+      </div>
+    </div>
+
+    <div id="enemy-panel">
+      <div id="enemy-glyph">☠</div>
+      <h2 id="enemy-name"></h2>
+      <div class="bar enemy-bar"><div id="en-fill" class="fill en"></div></div>
+      <span id="en-text" class="stat-text"></span>
+    </div>
+
+    <div id="combat-log"></div>
+
+    <div id="combat-actions">
+      <button class="btn action" data-act="attack">Attack</button>
+      <button class="btn action" data-act="defend">Defend</button>
+      <button class="btn action" data-act="item">Use Item</button>
+      <button class="btn action" data-act="flee">Flee</button>
+    </div>
+    <div id="item-menu" class="hidden"></div>
+  </section>
+
+  <!-- END SCREEN -->
+  <section id="screen-end" class="screen">
+    <h1 id="end-title"></h1>
+    <p id="end-text"></p>
+    <button id="btn-restart" class="btn">Try Again</button>
+  </section>
+
+</div>
+
+<div id="flash-overlay"></div>
+
+<script src="game.js"></script>
+</body>
+</html>
